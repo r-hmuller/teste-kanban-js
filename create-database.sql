@@ -1,0 +1,10 @@
+USE simple_kanban;
+
+CREATE TABLE IF NOT EXISTS cards (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    conteudo TEXT NOT NULL,
+    lista ENUM('TODO', 'DOING', 'DONE') NOT NULL,
+    createdAt DATETIME NOT NULL default CURRENT_TIMESTAMP,
+    updatedAt DATETIME NOT NULL
+);

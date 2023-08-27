@@ -30,4 +30,39 @@ export class CardService {
 
         return cards;
     }
+
+    async getCard(id: number): Promise<CardDTO> {
+        const cardModel = await CardModel.findByPk(id);
+        if (!cardModel) {
+            throw new Error('Card not found');
+        }
+        return {
+            id: cardModel.id,
+            titulo: cardModel.titulo,
+            conteudo: cardModel.conteudo,
+            lista: cardModel.lista,
+        }
+    }
+
+    async deleteCard(id: number): Promise<void> {
+        const cardModel = await CardModel.findByPk(id);
+        if (!cardModel) {
+            throw new Error('Card not found');
+        }
+        await cardModel.destroy();
+    }
+
+    async updateCard(card: CardDTO): Promise<CardDTO> {
+        const cardModel = await CardModel.findByPk(card.id);
+        if (!cardModel) {
+            throw new Error('Card not found');
+        }
+        await cardModel.update({titulo: card.titulo, conteudo: card.conteudo, lista: card.lista});
+        return {
+            id: cardModel.id,
+            titulo: cardModel.titulo,
+            conteudo: cardModel.conteudo,
+            lista: cardModel.lista,
+        }
+    }
 }

@@ -31,15 +31,64 @@ export class CardController {
             res.status(201).send(cardDTO);
         });
     }
-    getCard(req: Request, res: Response, next: NextFunction): Response {
-        return res.send("getCard");
+    getCard(req: Request, res: Response, next: NextFunction): void {
+        const errors: Result<ValidationError> = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array({onlyFirstError: true}) });
+            return;
+        }
+        const id: number = parseInt(req.params.id);
+        this.cardService.getCard(id).then((cardDTO: CardDTO) => {
+            res.json(cardDTO);
+        }).catch((error: Error) => {
+            if (error.message === 'Card not found') {
+                res.status(404).json({error: error.message});
+            } else {
+                res.status(500).json({error: error.message});
+            }
+        });
     }
 
-   updateCard(req: Request, res: Response, next: NextFunction): Response {
-        return res.send("updateCard");
+   updateCard(req: Request, res: Response, next: NextFunction): void {
+       const errors: Result<ValidationError> = validationResult(req);
+       if (!errors.isEmpty()) {
+           res.status(400).json({ errors: errors.array({onlyFirstError: true}) });
+           return;
+       }
+       let cardDTO: CardDTO = {
+          id: parseInt(req.params.id),
+           titulo: req.body.titulo,
+           conteudo: req.body.conteudo,
+           lista: req.body.lista,
+       }
+
+       this.cardService.updateCard(cardDTO).then((responseDTO: CardDTO) => {
+           cardDTO = responseDTO;
+           res.status(200).send(cardDTO);
+       }).catch((error: Error) => {
+              if (error.message === 'Card not found') {
+                res.status(404).json({error: error.message});
+              } else {
+                res.status(500).json({error: error.message});
+              }
+       });
    }
 
-   deleteCard(req: Request, res: Response, next: NextFunction): Response {
-        return res.send("deleteCard");
+   deleteCard(req: Request, res: Response, next: NextFunction): void {
+       const errors: Result<ValidationError> = validationResult(req);
+       if (!errors.isEmpty()) {
+           res.status(400).json({ errors: errors.array({onlyFirstError: true}) });
+           return;
+       }
+       const id: number = parseInt(req.params.id);
+       this.cardService.deleteCard(id).then(() => {
+              res.status(204).send();
+       }).catch((error: Error) => {
+           if (error.message === 'Card not found') {
+               res.status(404).json({error: error.message});
+           } else {
+               res.status(500).json({error: error.message});
+           }
+       });
    }
 }

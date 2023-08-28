@@ -2,7 +2,9 @@ version: '3.9'
 
 services:
   api:
-    build: ./back/Dockerfile
+    build:
+      context: ./back
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
   mysql:

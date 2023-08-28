@@ -1,7 +1,5 @@
 import {CardDTO} from "../dto/cardDTO";
-import {v4 as uuidv4} from 'uuid';
 import {CardModel} from "../entity/cardModel";
-
 
 export class CardService {
     async saveCard(card: CardDTO): Promise<CardDTO> {

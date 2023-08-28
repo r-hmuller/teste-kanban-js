@@ -1,0 +1,40 @@
+h1 {
+  font-size: 1.75em;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.kanban-boards {
+  display: flex;
+  gap: 10px;
+
+  .board {
+    flex: 1;
+    margin: 0 0.4em;
+    border: 1px solid black;
+    width: 23%;
+
+    h2 {
+      font-size: 1.25em;
+      text-align: center;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid dimgrey;
+      align-items: center;
+      margin: 0.5em;
+
+      input, textarea {
+        width: 95%;
+        padding: 0.25em;
+        margin: 0.25em;
+      }
+
+      .actions {
+        margin-bottom: 0.5em;
+      }
+    }
+  }
+}

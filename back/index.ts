@@ -1,5 +1,6 @@
 import express, {Express, NextFunction, Request, Response} from 'express';
 import card from "./src/route/card";
+import auth from "./src/route/auth";
 
 const app: Express = express();
 const port: string = '3000'
@@ -8,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/cards', card);
+app.use('/login', auth);
 
 app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
     console.log(err);

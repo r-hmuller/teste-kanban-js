@@ -7,6 +7,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    depends_on:
+      - mysql
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - api
   mysql:
     image: mysql:8
     ports:

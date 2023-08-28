@@ -1,4 +1,6 @@
 import express, {Express, NextFunction, Request, Response} from 'express';
+import cors from 'cors';
+
 import card from "./src/route/card";
 import auth from "./src/route/auth";
 
@@ -7,6 +9,11 @@ const port: string = '3000'
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+app.use(cors({
+    origin: process.env.CORS_ORIGIN ?? 'http://localhost:4200',
+}));
 
 app.use('/cards', card);
 app.use('/login', auth);

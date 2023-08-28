@@ -6,21 +6,68 @@
       <h2>NEW</h2>
 
       <div class="card">
-        <input type="text" placeholder="Título" />
-        <textarea placeholder="Conteúdo"></textarea>
+        <input matInput required type="text" placeholder="Título" name="titulo" [(ngModel)]="newCard.titulo"/>
+        <textarea matInput required name="conteudo" placeholder="Conteúdo" [(ngModel)]="newCard.conteudo"></textarea>
         <div class="actions">
-          <button>Adicionar</button>
+          <button (click)="createNewCard()">Adicionar</button>
         </div>
       </div>
     </div>
     <div class="board">
       <h2>TODO</h2>
+
+      <mat-card class="view-card" *ngFor="let card of listCards?.TODO">
+        <mat-card-header>
+          <mat-card-title class="view-card-title">
+            {{ card.titulo }}
+            <mat-icon (click)="editCard(card)" aria-hidden="false" aria-label="Editar card" fontIcon="edit"></mat-icon>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content [innerHTML]="card.conteudo">
+        </mat-card-content>
+        <mat-card-actions class="view-card-actions todo">
+          <mat-icon (click)="deleteCard(card)" aria-hidden="false" aria-label="Deletar card" fontIcon="delete"></mat-icon>
+          <mat-icon (click)="moveCard(card, 'DOING')" aria-hidden="false" aria-label="Mover card para coluna DOING" fontIcon="arrow_forward"></mat-icon>
+        </mat-card-actions>
+      </mat-card>
     </div>
     <div class="board">
       <h2>DOING</h2>
+      <mat-card class="view-card" *ngFor="let card of listCards?.DOING">
+        <mat-card-header>
+          <mat-card-title class="view-card-title">
+            <span>{{ card.titulo }}</span>
+            <mat-icon (click)="editCard(card)" aria-hidden="false" aria-label="Editar card" fontIcon="edit"></mat-icon>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{ card.conteudo }}
+        </mat-card-content>
+        <mat-card-actions class="view-card-actions">
+          <mat-icon (click)="moveCard(card, 'TODO')" aria-hidden="false" aria-label="Mover card para coluna TODO" fontIcon="arrow_back"></mat-icon>
+          <mat-icon (click)="deleteCard(card)" aria-hidden="false" aria-label="Deletar card" fontIcon="delete"></mat-icon>
+          <mat-icon (click)="moveCard(card, 'DONE')" aria-hidden="false" aria-label="Mover card para coluna DONE" fontIcon="arrow_forward"></mat-icon>
+        </mat-card-actions>
+      </mat-card>
     </div>
     <div class="board">
       <h2>DONE</h2>
+
+      <mat-card class="view-card" *ngFor="let card of listCards?.DONE">
+        <mat-card-header>
+          <mat-card-title class="view-card-title">
+            {{ card.titulo }}
+            <mat-icon (click)="editCard(card)" aria-hidden="false" aria-label="Editar card" fontIcon="edit"></mat-icon>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{ card.conteudo }}
+        </mat-card-content>
+        <mat-card-actions class="view-card-actions">
+          <mat-icon (click)="moveCard(card, 'DOING')" aria-hidden="false" aria-label="Mover card para coluna DOING" fontIcon="arrow_back"></mat-icon>
+          <mat-icon (click)="deleteCard(card)" aria-hidden="false" aria-label="Deletar card" fontIcon="delete"></mat-icon>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>

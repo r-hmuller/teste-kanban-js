@@ -1,6 +1,10 @@
 version: '3.9'
 
 services:
+  api:
+    build: ./back/Dockerfile
+    ports:
+      - "3000:3000"
   mysql:
     image: mysql:8
     ports:

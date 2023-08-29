@@ -17,6 +17,10 @@ services:
       - "4200:4200"
     depends_on:
       - api
+    environment:
+      - NG_APP_API_URL=${API_URL}
+      - NG_APP_API_USERNAME=${API_USERNAME}
+      - NG_APP_API_PASSWORD=${API_PASSWORD}
   mysql:
     image: mysql:8
     ports:

@@ -11,9 +11,11 @@ import {Login} from "../model/login.model";
 export class KanbanService {
 
   jwtToken: string = "";
-  kanbanUrl: string = "http://localhost:3000";
+  kanbanUrl: string = import.meta.env['NG_APP_API_URL'];
   constructor(private http: HttpClient) {
-    this.http.post<Login>(this.kanbanUrl + "/login", {"login": "letscode", "password": "lets@123"}).subscribe((login) => {
+    const login: string = import.meta.env['NG_APP_API_USERNAME'];
+    const password: string = import.meta.env['NG_APP_API_PASSWORD']
+    this.http.post<Login>(this.kanbanUrl + "/login", {"login": login, "password": password}).subscribe((login) => {
       this.jwtToken = login.jwtToken;
     });
   }

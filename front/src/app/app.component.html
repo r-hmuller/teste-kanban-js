@@ -5,13 +5,19 @@
     <div class="board">
       <h2>NEW</h2>
 
-      <div class="card">
-        <input matInput required type="text" placeholder="Título" name="titulo" [(ngModel)]="newCard.titulo"/>
-        <textarea matInput required name="conteudo" placeholder="Conteúdo" [(ngModel)]="newCard.conteudo"></textarea>
-        <div class="actions">
-          <button (click)="createNewCard()">Adicionar</button>
-        </div>
-      </div>
+      <mat-card class="view-card">
+        <mat-card-header>
+          <mat-card-title class="view-card-title">
+            <input matInput required type="text" placeholder="Título" name="titulo" [(ngModel)]="newCard.titulo"/>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <textarea matInput required name="conteudo" placeholder="Conteúdo" [(ngModel)]="newCard.conteudo"></textarea>
+        </mat-card-content>
+        <mat-card-actions class="view-card-actions todo">
+          <mat-icon (click)="createNewCard()" aria-hidden="false" aria-label="Salvar novo card" fontIcon="save"></mat-icon>
+        </mat-card-actions>
+      </mat-card>
     </div>
     <div class="board">
       <h2>TODO</h2>
